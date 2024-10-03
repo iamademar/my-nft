@@ -40,3 +40,14 @@ I paid 0.00145635 ETH to deploy your Ethereum contract. The gas fee refers to th
 4) **Gas Price (gwei)** - The gas price is the amount of gwei (a small fraction of ETH, where 1 ETH = 1 billion gwei) you are willing to pay per unit of gas
 
 https://etherscan.io/gastracker gives you real-time insights into gas prices across the Ethereum network. It shows the average gas price in gwei for different transaction speeds (slow, standard, fast) based on the current demand.
+
+
+# 3. Change the metadata and mint another NFT 
+
+You can see the changes I've created to modify the metadata and mint another NFT here:
+https://github.com/iamademar/my-nft/compare/main...metadata-update-and-mint
+
+### Results:
+- Contract Address in etherscan: https://holesky.etherscan.io/address/0xa2074923fe1F5c29C6e94aeb080B607170B2203B
+- Original Token Address in etherscan: https://holesky.etherscan.io/tx/0xd5e628cd949fcd166b931d0637106ed1c1ad60d2e7895016d044c8d20faa79e6P
+- Modified Token Address in etherscan: https://holesky.etherscan.io/tx/0x27affae6ccf187ca639dd13cd8d517f15b90353c58c95ea629966e26e4638077
