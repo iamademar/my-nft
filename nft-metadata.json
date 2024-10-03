@@ -2,14 +2,14 @@
     "attributes": [
       {
         "trait_type": "Course",
-        "value": "Cryptocurrency"
+        "value": "Blockchain Technology"
       },
       {
         "trait_type": "Name",
-        "value": "Satoshi Nakamoto"
+        "value": "Vitalik Buterin"
       }
     ],
-    "description": "Course Credits Certificate in Cryptocurrency",
-    "image": "https://gateway.pinata.cloud/ipfs/Qmbm1WbANAGmAfXG9oezsbFFQZo3WupQLo9StGgamJXEGe",
-    "name": "Course Credit Certificate"
-  }
+    "description": "Course Credits Certificate in Blockchain Technology",
+    "image": "https://gateway.pinata.cloud/ipfs/QmWFoFkGxcPcudMPSRH3Uavgv9vv87RBakd5M6QWoXDD45",
+    "name": "Advanced Blockchain Certificate"
+}

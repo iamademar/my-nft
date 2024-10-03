@@ -49,4 +49,4 @@ const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY)
     })
 }
 
-mintNFT("ipfs://Qmbm1WbANAGmAfXG9oezsbFFQZo3WupQLo9StGgamJXEGe")
+mintNFT("ipfs://QmWFoFkGxcPcudMPSRH3Uavgv9vv87RBakd5M6QWoXDD45")
