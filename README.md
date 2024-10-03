@@ -1,5 +1,5 @@
 
-# 1) What are some examples of fungible tokens compared to non-fungible tokens that you use that are not blockchain related (Tutorial 9)?
+# 1) What are some examples of fungible tokens compared to non-fungible tokens that you use that are not blockchain related?
 
 ## Understanding Fungible and Non-Fungible Tokens
 
