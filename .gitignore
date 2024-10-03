@@ -1,0 +1,43 @@
+# Node.js dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Optional: Uncomment if you're using TypeScript
+# *.tsbuildinfo
+
+# Optional: Uncomment if you're using Yarn
+# yarn.lock
+
+# Optional: Uncomment if you're using npm
+# package-lock.json
