@@ -24,3 +24,19 @@ Now, think of something unique—like a piece of art or a concert ticket. No two
 2. **Artwork**: A painting by an artist is unique, even if two pieces look similar.
 3. **Event Tickets**: Tickets for a concert or sporting event differ in value based on seat location or perks.
 4. **Identification Cards**: Your passport or driver’s license is specific to you and cannot be swapped with someone else’s.
+
+# 2) How much gas did you pay to deploy your contract? What are some implications of the gas auction fees model?
+
+I paid 0.00145635 ETH to deploy your Ethereum contract. The gas fee refers to the computational cost required to deploy the contract. At the time of contract deployment, the gas price you pay on Ethereum is influenced by several key factors:
+
+1) **Network Demand** - When many users are interacting with the Ethereum network at once (e.g., popular decentralized apps, NFT drops, or token transfers), demand for processing power increases.
+
+2) **Complexity of the Contract** - Ethereum transactions are priced based on the amount of computational resources they use, measured in units of gas. 
+
+3) **Gas Limit and Gas Used**
+  - The gas limit is the maximum amount of gas you’re willing to pay for a transaction.
+  - The gas used is the actual amount of gas consumed to process the transaction.
+
+4) **Gas Price (gwei)** - The gas price is the amount of gwei (a small fraction of ETH, where 1 ETH = 1 billion gwei) you are willing to pay per unit of gas
+
+https://etherscan.io/gastracker gives you real-time insights into gas prices across the Ethereum network. It shows the average gas price in gwei for different transaction speeds (slow, standard, fast) based on the current demand.
