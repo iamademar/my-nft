@@ -47,6 +47,33 @@ https://etherscan.io/gastracker gives you real-time insights into gas prices acr
 You can see the changes I've created to modify the metadata and mint another NFT here:
 https://github.com/iamademar/my-nft/compare/main...metadata-update-and-mint
 
+### Changes:
+
+On `nft-metadata.json`, these are the changes:
+```
+{
+    "attributes": [
+      {
+        "trait_type": "Course",
+        "value": "Blockchain Technology"
+      },
+      {
+        "trait_type": "Name",
+        "value": "Vitalik Buterin"
+      }
+    ],
+    "description": "Course Credits Certificate in Blockchain Technology",
+    "image": "https://gateway.pinata.cloud/ipfs/QmWFoFkGxcPcudMPSRH3Uavgv9vv87RBakd5M6QWoXDD45",
+    "name": "Advanced Blockchain Certificate"
+}
+```
+
+On `scripts/mint-nft.js`:
+I changed this line:
+```
+mintNFT("ipfs://QmWFoFkGxcPcudMPSRH3Uavgv9vv87RBakd5M6QWoXDD45")
+```
+
 ### Results:
 - Contract Address in etherscan: https://holesky.etherscan.io/address/0xa2074923fe1F5c29C6e94aeb080B607170B2203B
 - Original Token Address in etherscan: https://holesky.etherscan.io/tx/0xd5e628cd949fcd166b931d0637106ed1c1ad60d2e7895016d044c8d20faa79e6P
@@ -62,7 +89,7 @@ https://github.com/iamademar/my-nft/compare/main...generate-random-nft-on-mint
 
 The main changes are on 
 
-MyNFT.sol:
+`MyNFT.sol`:
 ```
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -105,7 +132,7 @@ contract SimpleRandomNFT is ERC721, Ownable {
 }
 ```
 
-mint-nft.js:
+`mint-nft.js`:
 ```
 require("dotenv").config();
 const ethers = require("ethers");
@@ -155,7 +182,7 @@ mintNFT();
 ```
 
 
-and deploy.js:
+and `deploy.js`:
 ```
 async function main() {
     const SimpleRandomNFT = await ethers.getContractFactory("SimpleRandomNFT")
