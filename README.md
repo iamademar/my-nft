@@ -80,7 +80,7 @@ mintNFT("ipfs://QmWFoFkGxcPcudMPSRH3Uavgv9vv87RBakd5M6QWoXDD45")
 - Modified Token Address in etherscan: https://holesky.etherscan.io/tx/0x27affae6ccf187ca639dd13cd8d517f15b90353c58c95ea629966e26e4638077
 
 
-# 3. Write a script to generate a new random NFT every time `mint` is called
+# 4. Write a script to generate a new random NFT every time `mint` is called
 
 To generate a new random NFT every time the mint function is called, I modified both the smart contract and the minting script. I also had to update deploy.js for the naming convention changes on the contract.
 
