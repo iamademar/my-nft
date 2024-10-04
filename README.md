@@ -1,5 +1,5 @@
 
-# 1) What are some examples of fungible tokens compared to non-fungible tokens that you use that are not blockchain related?
+# 1. What are some examples of fungible tokens compared to non-fungible tokens that you use that are not blockchain related?
 
 ## Understanding Fungible and Non-Fungible Tokens
 
@@ -25,7 +25,7 @@ Now, think of something unique—like a piece of art or a concert ticket. No two
 3. **Event Tickets**: Tickets for a concert or sporting event differ in value based on seat location or perks.
 4. **Identification Cards**: Your passport or driver’s license is specific to you and cannot be swapped with someone else’s.
 
-# 2) How much gas did you pay to deploy your contract? What are some implications of the gas auction fees model?
+# 2. How much gas did you pay to deploy your contract? What are some implications of the gas auction fees model?
 
 I paid 0.00145635 ETH to deploy your Ethereum contract. The gas fee refers to the computational cost required to deploy the contract. At the time of contract deployment, the gas price you pay on Ethereum is influenced by several key factors:
 

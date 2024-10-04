@@ -1,52 +1,45 @@
-require("dotenv").config()
-const API_URL = process.env.API_URL
-const PUBLIC_KEY = process.env.PUBLIC_KEY
-const PRIVATE_KEY = process.env.PRIVATE_KEY
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS
+require("dotenv").config();
+const ethers = require("ethers");
 
-const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
-const web3 = createAlchemyWeb3(API_URL)
-const contract = require("../artifacts/contracts/MyNFT.sol/courseNFT.json")
-const contractAddress = CONTRACT_ADDRESS
-const nftContract = new web3.eth.Contract(contract.abi, contractAddress)
+const API_URL = process.env.API_URL;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 
+const contract = require("../artifacts/contracts/MyNFT.sol/SimpleRandomNFT.json");
 
-async function mintNFT(tokenURI) {
-  const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, 'latest'); //get latest nonce
+// Provider
+const alchemyProvider = new ethers.providers.JsonRpcProvider(API_URL);
 
-  //the transaction
-  const tx = {
-    'from': PUBLIC_KEY,
-    'to': contractAddress,
-    'nonce': nonce,
-    'gas': 500000,
-    'data': nftContract.methods.mintNFT(PUBLIC_KEY, tokenURI).encodeABI()
-  };
+// Signer
+const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
 
-const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY)
-    signPromise
-        .then((signedTx) => {
-        web3.eth.sendSignedTransaction(
-            signedTx.rawTransaction,
-            function (err, hash) {
-            if (!err) {
-                console.log(
-                "The hash of your transaction is: ",
-                hash,
-                "\nCheck Alchemy's Mempool to view the status of your transaction!"
-                )
-            } else {
-                console.log(
-                "Something went wrong when submitting your transaction:",
-                err
-                )
-            }
-        }
-        )
-        })
-        .catch((err) => {
-        console.log(" Promise failed:", err)
-    })
+// Contract instance
+const nftContract = new ethers.Contract(CONTRACT_ADDRESS, contract.abi, signer);
+
+async function mintNFT() {
+  try {
+    console.log("Minting NFT...");
+
+    // Call the mintNFT function
+    const mintTx = await nftContract.mintNFT(signer.address);
+    
+    // Wait for the transaction to be mined
+    const receipt = await mintTx.wait();
+    
+    console.log("NFT minted successfully!");
+    console.log("Transaction hash:", receipt.transactionHash);
+    
+    // Get the token ID of the minted NFT
+    const tokenId = receipt.events[0].args.tokenId.toString();
+    console.log("Token ID:", tokenId);
+    
+    // Get the token URI
+    const tokenURI = await nftContract.tokenURI(tokenId);
+    console.log("Token URI:", tokenURI);
+
+  } catch (error) {
+    console.error("Error minting NFT:", error);
+  }
 }
 
-mintNFT("ipfs://Qmbm1WbANAGmAfXG9oezsbFFQZo3WupQLo9StGgamJXEGe")
+mintNFT();

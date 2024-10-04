@@ -1,10 +1,10 @@
 async function main() {
-    const CourseNFT = await ethers.getContractFactory("courseNFT")
+    const SimpleRandomNFT = await ethers.getContractFactory("SimpleRandomNFT")
   
     // Start deployment, returning a promise that resolves to a contract object
-    const courseNFT = await CourseNFT.deploy()
-    await courseNFT.deployed()
-    console.log("Contract deployed to address:", courseNFT.address)
+    const simpleRandomNFT = await SimpleRandomNFT.deploy()
+    await simpleRandomNFT.deployed()
+    console.log("Contract deployed to address:", simpleRandomNFT.address)
   }
   
   main()
@@ -13,4 +13,3 @@ async function main() {
       console.error(error)
       process.exit(1)
     })
-  
