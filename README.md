@@ -51,3 +51,143 @@ https://github.com/iamademar/my-nft/compare/main...metadata-update-and-mint
 - Contract Address in etherscan: https://holesky.etherscan.io/address/0xa2074923fe1F5c29C6e94aeb080B607170B2203B
 - Original Token Address in etherscan: https://holesky.etherscan.io/tx/0xd5e628cd949fcd166b931d0637106ed1c1ad60d2e7895016d044c8d20faa79e6P
 - Modified Token Address in etherscan: https://holesky.etherscan.io/tx/0x27affae6ccf187ca639dd13cd8d517f15b90353c58c95ea629966e26e4638077
+
+
+# 3. Write a script to generate a new random NFT every time `mint` is called
+
+To generate a new random NFT every time the mint function is called, I modified both the smart contract and the minting script. I also had to update deploy.js for the naming convention changes on the contract.
+
+The changes I created can be seen here:
+https://github.com/iamademar/my-nft/compare/main...generate-random-nft-on-mint
+
+The main changes are on 
+
+MyNFT.sol:
+```
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+
+contract SimpleRandomNFT is ERC721, Ownable {
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+
+    constructor() ERC721("SimpleRandomNFT", "SRNFT") {}
+
+    function mintNFT(address recipient)
+        public onlyOwner
+        returns (uint256)
+    {
+        _tokenIds.increment();
+        uint256 newItemId = _tokenIds.current();
+        
+        _mint(recipient, newItemId);
+        
+        return newItemId;
+    }
+
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        
+        uint256 randomNumber = uint256(keccak256(abi.encodePacked(block.timestamp, tokenId))) % 100;
+        
+        return string(abi.encodePacked(
+            "https://example.com/api/token/",
+            Strings.toString(tokenId),
+            "?random=",
+            Strings.toString(randomNumber)
+        ));
+    }
+}
+```
+
+mint-nft.js:
+```
+require("dotenv").config();
+const ethers = require("ethers");
+
+const API_URL = process.env.API_URL;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
+
+const contract = require("../artifacts/contracts/MyNFT.sol/SimpleRandomNFT.json");
+
+// Provider
+const alchemyProvider = new ethers.providers.JsonRpcProvider(API_URL);
+
+// Signer
+const signer = new ethers.Wallet(PRIVATE_KEY, alchemyProvider);
+
+// Contract instance
+const nftContract = new ethers.Contract(CONTRACT_ADDRESS, contract.abi, signer);
+
+async function mintNFT() {
+  try {
+    console.log("Minting NFT...");
+
+    // Call the mintNFT function
+    const mintTx = await nftContract.mintNFT(signer.address);
+    
+    // Wait for the transaction to be mined
+    const receipt = await mintTx.wait();
+    
+    console.log("NFT minted successfully!");
+    console.log("Transaction hash:", receipt.transactionHash);
+    
+    // Get the token ID of the minted NFT
+    const tokenId = receipt.events[0].args.tokenId.toString();
+    console.log("Token ID:", tokenId);
+    
+    // Get the token URI
+    const tokenURI = await nftContract.tokenURI(tokenId);
+    console.log("Token URI:", tokenURI);
+
+  } catch (error) {
+    console.error("Error minting NFT:", error);
+  }
+}
+
+mintNFT();
+```
+
+
+and deploy.js:
+```
+async function main() {
+    const SimpleRandomNFT = await ethers.getContractFactory("SimpleRandomNFT")
+  
+    // Start deployment, returning a promise that resolves to a contract object
+    const simpleRandomNFT = await SimpleRandomNFT.deploy()
+    await simpleRandomNFT.deployed()
+    console.log("Contract deployed to address:", simpleRandomNFT.address)
+  }
+  
+  main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+      console.error(error)
+      process.exit(1)
+    })
+```
+
+### Results
+
+1) Random NFT Contract:
+https://holesky.etherscan.io/address/0x42F9887199bedf38Ad64a51f746f61795080264f
+
+---
+
+I minted two random nft:
+
+2) Random NFT 1:
+https://holesky.etherscan.io/tx/0xb584c529bb27b9f020b86234c40edef6debf58ce72eb40e92a12d1410b57ad8f
+
+3) Random NFT 2:
+https://holesky.etherscan.io/tx/0x4587da93ff7bd4a9932804a665e7c5f174184d0322ce130dc5bae158f928ae8b
+
+Here's a screen dump of the results:
+<img width="579" alt="Screenshot 2024-10-04 at 1 14 05 PM" src="https://github.com/user-attachments/assets/0e382aac-e9ec-48b3-ad47-9612d9c953f3">
