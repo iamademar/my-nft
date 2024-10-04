@@ -39,6 +39,12 @@ I paid 0.00145635 ETH to deploy your Ethereum contract. The gas fee refers to th
 
 4) **Gas Price (gwei)** - The gas price is the amount of gwei (a small fraction of ETH, where 1 ETH = 1 billion gwei) you are willing to pay per unit of gas
 
+The gas auction model operates like a bidding system, where higher bidders are prioritized by miners. Some implications of this model include:
+
+- **Unpredictable Fees**: Gas fees fluctuate based on network activity, making it difficult to predict exact costs.
+- **Transaction Delays**: If you set a lower gas price, your transaction may take longer to be processed or be stuck in the network.
+- **High Costs During Network Congestion**: Popular events (e.g., NFT sales or high DeFi usage) can drastically increase fees, pricing out smaller transactions.
+
 https://etherscan.io/gastracker gives you real-time insights into gas prices across the Ethereum network. It shows the average gas price in gwei for different transaction speeds (slow, standard, fast) based on the current demand.
 
 
